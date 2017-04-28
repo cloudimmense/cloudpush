@@ -4,6 +4,7 @@ from flask import send_from_directory
 from invoke_ansible import run_playbook 
 import json
 import ansible
+import os
 app = Flask(__name__,static_url_path='/static')
 
 @app.route('/hello/')
@@ -41,6 +42,13 @@ def status():
     evars = { "job_id": "362518481715.4888"}
     result = open("/home/ubuntu/.ansible_async/"+evars["job_id"], "r").read()
     return result
+
+@app.route('/listjobs')
+def listjobs():
+    evars = { "job_id": "362518481715.4888"}
+    dirname = "/home/ubuntu/.ansible_async/"
+    return json.dumps(os.listdir(dirname))
+
 
 if __name__ == '__main__':
     app.debug = False
