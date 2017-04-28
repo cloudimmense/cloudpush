@@ -1,0 +1,15 @@
+---
+- hosts: localhost
+  connection: local
+  gather_facts: false
+  tasks:
+    - name: Update repositories cache and install "foo" package
+      apt:
+        name: vim
+        update_cache: yes
+      async: 1000
+      poll: 0
+      register: jobid
+    - name: 'debug'
+      debug:
+        msg: "{{ jobid['ansible_job_id'] }}"
