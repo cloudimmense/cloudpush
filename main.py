@@ -49,6 +49,23 @@ def listjobs():
     dirname = "/home/ubuntu/.ansible_async/"
     return json.dumps(os.listdir(dirname))
 
+@app.route('/listvms')
+def listvms():
+    evars = [
+            { "id":1, "ip":"10.0.0.1", "username": "ubuntu", "keyname": "testkey.pem"},
+            { "id":2, "ip":"10.0.0.2", "username": "fedora", "keyname": "testkey.pem"},
+            { "id":3, "ip":"10.0.0.3", "username": "centos", "keyname": "testkey.pem"},
+            ]
+    return json.dumps(evars)
+
+@app.route('/listsshkeys')
+def listsshkeys():
+    evars = [
+            { "id":1, "name":"testkey1.pem"},
+            { "id":2, "name":"testkey2.pem"},
+            { "id":1, "name":"testkey3.pem"},
+            ]
+    return json.dumps(evars)
 
 if __name__ == '__main__':
     app.debug = False
